@@ -1,0 +1,29 @@
+name: "\U0001f9be Sovereign-OS Dark Pulse 24/7"
+
+on:
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:
+
+jobs:
+  eternal_pulse:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "\U0001f6e1 Checkout Repository"
+        uses: actions/checkout@v4
+      
+      - name: "\U0001f40d Setup Python"
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: "\U0001f4e6 Install Dependencies"
+        run: pip install requests
+
+      - name: "\U0001f7e2 Execute Cloud Vessel"
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          GITHUB_USERNAME: ${{ secrets.GITHUB_USERNAME }}
+          GITHUB_REPO: ${{ secrets.GITHUB_REPO }}
+        run: python cloud_vessel.py
